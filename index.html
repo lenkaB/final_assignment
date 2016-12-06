@@ -1,0 +1,147 @@
+<html>
+	<head>	
+		<title>ULTIMATE ESSAY WRITER</title>	
+
+		<style>
+		
+			/* CSS Styling */ 
+			
+			body {
+			  background-color: #dfe4e7;
+			}
+
+			#frame {
+				width: 30em;
+			}
+			textarea {
+				position: fixed;
+    			bottom: 200;
+    			left: 490;
+				height: 320px;
+				width: 580px;
+				border: 5px solid #8b98ab;
+				padding: 3px;
+				background-color: #ffffff
+			}
+
+			
+			}
+			#inputs, #text_field {
+				width: 100%;
+				background-color: #ffffff
+			}
+
+		</style>
+
+		<!--Word Counter -->
+		<SCRIPT LANGUAGE="JavaScript">
+
+
+				function CountWords (this_field, show_word_count, show_char_count) {
+				if (show_word_count == null) {
+				show_word_count = true;
+				}
+				if (show_char_count == null) {
+				show_char_count = false;
+				}
+				var char_count = this_field.value.length;
+				var fullStr = this_field.value + " ";
+				var initial_whitespace_rExp = /^[^A-Za-z0-9]+/gi;
+				var left_trimmedStr = fullStr.replace(initial_whitespace_rExp, "");
+				var non_alphanumerics_rExp = rExp = /[^A-Za-z0-9]+/gi;
+				var cleanedStr = left_trimmedStr.replace(non_alphanumerics_rExp, " ");
+				var splitString = cleanedStr.split(" ");
+				var word_count = splitString.length -1;
+				if (fullStr.length <2) {
+				word_count = 0;
+				}
+				if (word_count == 1) {
+				wordOrWords = " word";
+				}
+				else {
+				wordOrWords = " words";
+				}
+				if (char_count == 1) {
+				charOrChars = " character";
+				} else {
+				charOrChars = " characters";
+				}
+				if (show_word_count & show_char_count) {
+				alert ("Word Count:\n" + "    " + word_count + wordOrWords + "\n" + "    " + char_count + charOrChars);
+				}
+				else {
+				if (show_word_count) {
+				alert ("Word Count:  " + word_count + wordOrWords);
+				}
+				else {
+				if (show_char_count) {
+				alert ("Character Count:  " + char_count + charOrChars);
+				      }
+				   }
+				}
+				return word_count;
+				}
+				
+				</script>
+
+	</head>
+	<body>
+		<!-- HTML -->
+			<label style="font-family: 'Lucida Sans Unicode';
+						font-size: 30px;
+						position: fixed; left: 500; top: 100;"
+						>The Ultimate Essay Writer: </label>
+		     
+            		<div id="frame">
+
+			<!-- text area where you can write your essay -->
+			<textarea id="conversation" text="..." rows="20" cols="80">...</textarea>
+
+
+		</div>		
+
+		<!-- SCRIPTS -->
+		<!-- import socket.io -->
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			// connect to localhost on its port (see server.js -- 8088)
+		  var socket = io().connect('http://localhost:8088');
+
+		  // when connecting 
+		  socket.on('connect', function (data) {
+		  	console.log('user has connected to server');
+		  });
+
+		 
+
+
+		  function send_message () {
+
+		  		var text = document.getElementById("text_field").value;
+
+		  	document.getElementById("conversation").value += '* ' + text + '\n';
+
+		  	socket.emit('message from human', text);
+
+		  	document.getElementById("text_field").value = ''; //clears the text after writing and sending it
+
+		  }
+
+
+		</script>
+
+					<!--word counter button -->
+					<form>
+					<textarea cols=40 rows=5 name=x>
+					</textarea>
+					<br>
+					<input type=button value="Count Words" OnClick ="CountWords(this.form.x, true, true);">
+					</form>
+
+					<p><center>
+					
+					</center><p>
+
+	</body>
+</html>
+
