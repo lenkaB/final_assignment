@@ -1,19 +1,22 @@
 
+var express = require('express');
+var app = express();
 
-    // import express ()
-    var express = require('express');		// npm install --save express
-    var app = express();
+//setting middleware
+app.use(express.static(__dirname + "/public")); //Serves resources from public folder
 
-    // import node.js http
+
+ // import node.js http
     var server = require('http').Server(app);
 
+    
     // import socket.io
-    var io = require('socket.io')(server);	// npm install --save socket.io
+    var io = require('socket.io')(server);  // npm install --save socket.io
 
 
 
 /* ----------------------------------
-	Server and Socket Configuration
+    Server and Socket Configuration
 --------------------------------------*/
 
 // tell express to server our index.html file, when someone requests the server, send the index.html file
@@ -23,11 +26,10 @@ app.get('/', function (req, res) {
 
 
 /* -------------------
-	Start the server
+    Start the server
 ----------------------*/
 
 // listen to connection on port 8088 --> http://localhost:8088
 server.listen(8088, function () {
-	console.log('listening on port: ' + 8088);
+    console.log('listening on port: ' + 8088);
 });
-

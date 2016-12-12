@@ -2,70 +2,177 @@
 	<head>	
 		<title>ULTIMATE ESSAY WRITER</title>	
 
-		<style>
+		<style type="text/css"> /* CSS Styling */ 
 		
-			/* CSS Styling */ 
+		body {
+			min-width: 630px;         /* 2 x (LC fullwidth + CC padding) + RC fullwidth */
+		}
+
+		#container {
+			padding-left: 200px;      /* LC fullwidth */
+			padding-right: 200px;     /* RC fullwidth + CC padding */
+		}
+		
+		#container .column {
+			position: relative;
+			float: left;
+		}
+		
+		#center {
+			padding: 10px 0px;       /* CC padding */
+			width: 100%;
+			height: 550px;
 			
-			body {
-			  background-color: #dfe4e7;
-			}
+		}
 
-			#frame {
-				width: 30em;
+			#ckcontainer {
+			    margin-right: auto;
+			    margin-left: auto ;
+			    width: 1000px;
+			    vertical-align:middle;
 			}
-			textarea {
-				position: fixed;
-    			bottom: 200;
-    			left: 490;
-				height: 320px;
-				width: 580px;
-				border: 5px solid #8b98ab;
-				padding: 3px;
-				background-color: #ffffff
-			}
+		
+		#left {
+			width: 180px;             /* LC width */
+			padding: 0 10px;          /* LC padding */
+			right: 200px;             /* LC fullwidth + CC padding */
+			margin-left: -100%;
+		}
+		
+		#right {
+			width: 180px;             /* RC width */
+			padding: 0 10px; 
+			right: 0px;         /* RC padding */
+			margin-right: -100%;
+		}
+		
+		#footer {
+			clear: both;
+		}
+		
+		/*** IE Fix ***/
+		* html #left {
+			left: 150px;              /* RC fullwidth */
+		}
 
-			
-			}
-			#inputs, #text_field {
-				width: 100%;
-				background-color: #ffffff
-			}
+		/*** Equal-height Columns ***/
 
+		#container {
+			overflow: hidden;
+		}
+
+		#container .column {
+			padding-bottom: 1001em;     /* X + padding-bottom */
+			margin-bottom: -1000em;     /* X */
+		}
+
+		/*** Footer Fix ***/
+
+		* html body {
+			overflow: hidden;
+		}
+		
+		* html #footer-wrapper {
+			float: left;
+			position: relative;
+			width: 100%;
+			padding-bottom: 10010px;
+			margin-bottom: -10000px;
+			background: #FFF;         /*** Same as body background ***/
+		}
+
+		/*** Just for Looks ***/
+
+		body {
+			margin: 0;
+			padding: 0;
+			background-image: url(/bg5.jpeg);
+		}
+
+		#header{
+			font-size: large;
+			text-align: center;
+			padding: 0.3em 0;
+			height: 60px;
+			background: transparent;
+			/*border-bottom: double black 4px;*/
+		}
+			#titletext {
+				text-align: left;
+				width: 500px;
+				border-bottom: solid white 2px;
+				padding-top: 22px;
+			    padding-right: 30px;
+			    padding-bottom: 13px;
+			    padding-left: 30px;
+			    font-family: "Montserrat", Times, serif;
+			    font-size: x-large;
+			    color: #333333;
+		}
+
+		#footer {
+			text-align: right;
+			padding-right: 10px;
+			padding-top: 35px;
+			height: 20px;
+			font-family: "Hind", Times, serif;
+			font-size: medium;
+			color: black;
+
+		}
+
+		#left {
+			background: transparent;
+		}
+
+		#center {
+			background: transparent;
+		}
+
+		#right {
+			background: transparent;
+		}
+
+		#container .column {
+			padding-top: 1em;
+			text-align: justify;
+		}
+									
 		</style>
 
 		<!--Word Counter -->
 		<SCRIPT LANGUAGE="JavaScript">
 
-
-				function CountWords (this_field, show_word_count, show_char_count) {
+			function CountWords (this_field, show_word_count, show_char_count) {
 				if (show_word_count == null) {
 				show_word_count = true;
-				}
+			}
 				if (show_char_count == null) {
 				show_char_count = false;
-				}
-				var char_count = this_field.value.length;
-				var fullStr = this_field.value + " ";
-				var initial_whitespace_rExp = /^[^A-Za-z0-9]+/gi;
-				var left_trimmedStr = fullStr.replace(initial_whitespace_rExp, "");
-				var non_alphanumerics_rExp = rExp = /[^A-Za-z0-9]+/gi;
-				var cleanedStr = left_trimmedStr.replace(non_alphanumerics_rExp, " ");
-				var splitString = cleanedStr.split(" ");
-				var word_count = splitString.length -1;
+			}
+			var char_count = this_field.value.length;
+			var fullStr = this_field.value + " ";
+			var initial_whitespace_rExp = /^[^A-Za-z0-9]+/gi;
+			var left_trimmedStr = fullStr.replace(initial_whitespace_rExp, "");
+			var non_alphanumerics_rExp = rExp = /[^A-Za-z0-9]+/gi;
+			var cleanedStr = left_trimmedStr.replace(non_alphanumerics_rExp, " ");
+			var splitString = cleanedStr.split(" ");
+			var word_count = splitString.length -1;	
+
 				if (fullStr.length <2) {
 				word_count = 0;
-				}
+			}
 				if (word_count == 1) {
 				wordOrWords = " word";
-				}
+			}
 				else {
 				wordOrWords = " words";
-				}
+			}
 				if (char_count == 1) {
 				charOrChars = " character";
 				} else {
 				charOrChars = " characters";
-				}
+			}
 				if (show_word_count & show_char_count) {
 				alert ("Word Count:\n" + "    " + word_count + wordOrWords + "\n" + "    " + char_count + charOrChars);
 				}
@@ -82,66 +189,121 @@
 				return word_count;
 				}
 				
-				</script>
-
-	</head>
-	<body>
-		<!-- HTML -->
-			<label style="font-family: 'Lucida Sans Unicode';
-						font-size: 30px;
-						position: fixed; left: 500; top: 100;"
-						>The Ultimate Essay Writer: </label>
-		     
-            		<div id="frame">
-
-			<!-- text area where you can write your essay -->
-			<textarea id="conversation" text="..." rows="20" cols="80">...</textarea>
+			</script>
 
 
-		</div>		
-
-		<!-- SCRIPTS -->
-		<!-- import socket.io -->
-		<script src="/socket.io/socket.io.js"></script>
-		<script>
-			// connect to localhost on its port (see server.js -- 8088)
-		  var socket = io().connect('http://localhost:8088');
-
-		  // when connecting 
-		  socket.on('connect', function (data) {
-		  	console.log('user has connected to server');
-		  });
-
-		 
-
-
-		  function send_message () {
-
-		  		var text = document.getElementById("text_field").value;
-
-		  	document.getElementById("conversation").value += '* ' + text + '\n';
-
-		  	socket.emit('message from human', text);
-
-		  	document.getElementById("text_field").value = ''; //clears the text after writing and sending it
-
+		<!--Ckeditor -->
+				<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+			<script type="text/javascript">
+	    	window.onload = function()
+	    {
+	        var oFCKeditor1 = new CKEDITOR('message');
+	        oFCKeditor1.ToolbarSet = 'Basic' ;
+	        oFCKeditor1.BasePath = "ckeditor/" ;
+	        oFCKeditor1.ReplaceTextarea() ;
+	    }
+			</script>
+					  
+					  
+                        <script>
+                        var old_wc=0;
+                        var t = 0;
+                                var timer = setInterval(function() {
+		  		checkProgress();
+		  		
+		    }, 5000);
+		    
+		    
+		    function checkProgress() {
+		    
+		  	var wc = CountWords;
+		  	if(wc != old_wc) {
+		  		//socket.emit('request tag text', text);
+		  		old_wc = wc;
+		  		t=0;
+		  	}
+		  	else {
+                            t++;
+                            
+                            var audio = new Audio('tick.ogg');
+                            audio.play();
+                            var audio2 = new Audio('tick.mp3');
+                            audio2.play();
+                            
+                            var sound= document.getElementById("check");
+       sound.play();
+                            
+                            
+                            window.alert("You should be writing");
+                            
+                            
+                                
+                            
+                            
+                            
+                            }
+                            
 		  }
+		  
+		  
+		  
+		  
+		  </script>
+	  			<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+	</head>
 
+	<body>
 
-		</script>
+		<div id="header">
+			<div id= "titletext">ULTIMATE ESSAY WRITER.</div>
+		</div>
 
-					<!--word counter button -->
-					<form>
-					<textarea cols=40 rows=5 name=x>
-					</textarea>
-					<br>
-					<input type=button value="Count Words" OnClick ="CountWords(this.form.x, true, true);">
-					</form>
+	<div id="container">
 
-					<p><center>
-					
-					</center><p>
+		<div id="center" class="column">
+			<div id="ckcontainer">
+				<form>
+					<textarea name="editor1" id="editor1"> </textarea>
+					    <script>CKEDITOR.replace( 'editor1' ); </script>            
+				</form>	
+			</div>
+			
+		</div>
+		
+		<div id="left" class="column">
+			<h2></h2>
+			
+			
+			<audio id = "check" preload = "auto">
+    <source src = "tick.ogg"></audio>
+			
+			
+		</div>
+
+		<div id="right" class="column">
+			<h2></h2>
+		</div>
+
+	</div>
+
+	<div id="footer-wrapper">
+		<div id="footer">CTH 2016</div>
+	</div>
+
+			
+			<!-- import socket.io -->
+			<script src="/socket.io/socket.io.js"></script>
+			<script>
+				// connect to localhost on its port (see server.js -- 8088)
+			  var socket = io().connect('http://localhost:8088');
+
+			  // when connecting 
+			  socket.on('connect', function (data) {
+			  	console.log('user has connected to server');
+			  });
+			</script>
 
 	</body>
+
 </html>
 
