@@ -1,5 +1,6 @@
 
 var express = require('express');
+var chance = require('chance').Chance();
 var app = express();
 
 //setting middleware
