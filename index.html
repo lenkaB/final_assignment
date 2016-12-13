@@ -40,10 +40,11 @@
         var old_per = 0;
         var t = 0;
         var width = 0;
+        var w=0;
         var timer = setInterval(function() {
             checkProgress();
 
-        }, 500);
+        }, 1000);
 
         function checkProgress() {
             var editor = document.querySelector('[lang="en"]');
@@ -61,7 +62,7 @@
             } 
             else {
                 t++;
-                if (t == 10) {
+                if (t == 20) {
                     audio1.play();
                     socket.emit('procrast');
                 }
@@ -126,7 +127,7 @@
         // when connecting 
         socket.on('connect', function(data) {
             console.log('user has connected to server');
-            var w = prompt("How many words do you need to write?");
+            w = prompt("How many words do you need to write?");
         });
 
         socket.on('message', function(msg) {
