@@ -40,7 +40,7 @@
         var old_per = 0;
         var t = 0;
         var width = 0;
-        var w=0;
+        var w = prompt("How many words do you need to write?");;
         var timer = setInterval(function() {
             checkProgress();
 
@@ -127,7 +127,6 @@
         // when connecting 
         socket.on('connect', function(data) {
             console.log('user has connected to server');
-            w = prompt("How many words do you need to write?");
         });
 
         socket.on('message', function(msg) {
