@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ULTIMATE ESSAY WRITER</title>
+    <title>PROBOT.</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="style.css">
 
-    <!--Word Counter -->
+    <!--
+    
+    Word Counter - we found a template online and applied it for our case, it recieves the field which contains text as an argument
+    which was tricky because the editor is very advanced and a 'black box' so we had to find a way to find the right field in the DOM 
+    since it is the only field with language property defined, that is how we found it in the tree
+    when it gets the field, the function gets the innerText from it and parses it and returns the word count
+    
+    -->
+     
+    
     <script>
         function CountWords(this_field) {
 
@@ -24,7 +33,11 @@
     </script>
 
 
-    <!--Ckeditor -->
+    <!--
+    
+    Ckeditor - very cool and advanced editor, customizable and lets you write a nicely formatted essay
+    
+    -->
     <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         window.onload = function() {
@@ -36,47 +49,63 @@
     </script>
     
     <script>
+    
+        /*
+        setup which occurs when the window is opened,setting global variables to 0 and creating a timer
+        old_wc and old_per is storing the last measured values of percentage which are compared with the newly measured ones - the function CountWords is called every second and the value it returns for the new word count is used to calculate new percentage and to check if there was any progress
+        
+        */
+      
         var old_wc = 0;
         var old_per = 0;
         var t = 0;
         var width = 0;
-        var w = prompt("How many words do you need to write?");;
+        var w = prompt("Hi there, how many words do you need to write?");;
         var timer = setInterval(function() {
             checkProgress();
 
         }, 1000);
 
         function checkProgress() {
-            var editor = document.querySelector('[lang="en"]');
+            var editor = document.querySelector('[lang="en"]'); //trick we used to get to the editor field, since it doesn't have an ID
             var wc = CountWords(editor);
-            var audio1 = new Audio('tick.mp3');
+            var audio1 = new Audio('/tick.ogg');
             var per = (wc / w) * 100;
             
-            if (wc != old_wc) {
-                audio1.pause(); // a little slow but ok 
+            if (wc != old_wc) { //if you are progressing, so new word count is different from the old one, several things happen
+                audio1.pause(); // in case the ticking noise was playing, it is turned off - this works a little slow but ok 
                 var diff = per - old_per;
-                old_wc = wc;
+                old_wc = wc; //new values replace the old ones
                 old_per = per;
-                t = 0;
-                move(diff);
+                t = 0; // t = time not written, goes back to 0
+                move(diff); //progress bar is moved for the difference of percentages
             } 
             else {
                 t++;
-                if (t == 20) {
-                    audio1.play();
-                    socket.emit('procrast');
+                if (t == 20) { // if you haven't written for 20 seconds (IRL should be 20 minutes, this is just for presentation)
+                    audio1.play(); // the ticking noise starts
+                    socket.emit('procrast'); 
+                    //signal for procrastination is emitted, which makes the server create and return a random message to be displayed in the popup
                 }
             }
+            if(wc == w){ //if you reached your goal, a success popup is displayed and a success tune is played
+                window.alert("Congratulations!");
+                var wow = new Audio('/wow.mp3');
+                wow.play();
+                }
+            
         }
 
+        /*
+        this function moves the progress bar, for the percantage it recieves as the difference in progress, also changes the label text with your completed %
+        */
+        
         function move(percentage) {
             var elem = document.getElementById("myBar");
             frame(percentage);
 
             function frame(percentage) {
-                if (width >= 100) {
-                    window.alert("congratulations!");
-                } else {
+                if (width+percentage <= 100) { 
                     width = width + percentage;
                     elem.style.width = Math.round(width) + '%';
                     document.getElementById("label").innerHTML = Math.round(width) + '%';
@@ -89,7 +118,7 @@
 <body>
 
     <div id="header">
-        <div id="titletext">ULTIMATE ESSAY WRITER.</div>
+        <div id="titletext">PROBOT.</div>
     </div>
 
     
@@ -128,7 +157,7 @@
         socket.on('connect', function(data) {
             console.log('user has connected to server');
         });
-
+        //when the server emits a procrastination message, it is displayed in a popup
         socket.on('message', function(msg) {
             window.alert(msg);
         });
