@@ -60,6 +60,7 @@
         var old_per = 0;
         var t = 0;
         var width = 0;
+        var audio1 = new Audio('/tick.ogg');
         var w = prompt("Hi there, how many words do you need to write?");;
         var timer = setInterval(function() {
             checkProgress();
@@ -69,7 +70,6 @@
         function checkProgress() {
             var editor = document.querySelector('[lang="en"]'); //trick we used to get to the editor field, since it doesn't have an ID
             var wc = CountWords(editor);
-            var audio1 = new Audio('/tick.ogg');
             var per = (wc / w) * 100;
             
             if (wc != old_wc) { //if you are progressing, so new word count is different from the old one, several things happen
@@ -88,10 +88,11 @@
                     //signal for procrastination is emitted, which makes the server create and return a random message to be displayed in the popup
                 }
             }
-            if(wc == w){ //if you reached your goal, a success popup is displayed and a success tune is played
+            if(wc == w){ //if you reached your goal, a success popup is displayed and a success tune is played and the timer is disabled
                 window.alert("Congratulations!");
                 var wow = new Audio('/wow.mp3');
                 wow.play();
+                clearInterval(timer);
                 }
             
         }
